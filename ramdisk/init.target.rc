@@ -172,6 +172,7 @@ on property:sys.shutdown.requested=*
     stop per_proxy
 
 service mdm_launcher /system/bin/sh init.mdm.sh
+     seclabel u:r:init:s0
      class core
      oneshot
 
@@ -323,6 +324,7 @@ service usf_sw_calib /system/bin/usf_sw_calib
     oneshot
 
 service usf-post-boot /system/bin/sh /system/etc/usf_post_boot.sh
+    seclabel u:r:init:s0
     class late_start
     user root
     disabled

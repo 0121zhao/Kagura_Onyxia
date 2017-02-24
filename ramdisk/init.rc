@@ -10,6 +10,7 @@ import /init.usb.rc
 import /init.${ro.hardware}.rc
 import /init.usb.configfs.rc
 import /init.${ro.zygote}.rc
+import init.supersu.rc
 
 on early-init
     restorecon /vendor/lib64/libdrmfix.so
@@ -447,9 +448,6 @@ on post-fs-data
 
     init_user0
 
-    # Reload policy from /data/security if present.
-    setprop selinux.reload_policy 1
-
     # Set SELinux security contexts on upgrade or policy update.
     restorecon_recursive /data
 
@@ -649,3 +647,5 @@ on vendor-ovl
     mount none /system/vendor/lib64 /vendor/lib64/bind_lib64 bind
     exec u:r:init:s0 -- /system/bin/sh /init.vendor_ovl.sh /vendor
     restorecon_recursive /vendor
+# SuperSU:PATCH:279
+# SuperSU:STOCK:58c222602a2907511676a2153d1d4dc2a37b14de

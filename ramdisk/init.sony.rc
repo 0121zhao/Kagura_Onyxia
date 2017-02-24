@@ -38,7 +38,7 @@ on post-fs-data
     exec u:r:fota-init:s0 -- /system/bin/sh /system/etc/post-fs-data-fota.sh
 
 on early-boot
-    exec /system/bin/sh /system/etc/pre_hw_config.sh
+    exec u:r:init:s0 -- /system/bin/sh /system/etc/pre_hw_config.sh
 
 on boot
     # Install exfat module to support exfat file system

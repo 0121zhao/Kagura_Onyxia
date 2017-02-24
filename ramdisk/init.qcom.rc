@@ -460,11 +460,13 @@ on property:bluetooth.startbtsnoop=false
     stop btsnoop
 
 service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
+    seclabel u:r:init:s0
     class core
     user root
     oneshot
 
 service qcom-c_main-sh /system/bin/sh /init.class_main.sh
+    seclabel u:r:init:s0
     class main
     user root
     oneshot
@@ -543,6 +545,7 @@ service fmhal_service /system/bin/fmhal_service
 #    oneshot
 
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
+    seclabel u:r:init:s0
     class late_start
     user bluetooth
     group bluetooth net_bt_admin
@@ -556,6 +559,7 @@ on property:bluetooth.hciattach=false
     setprop bluetooth.status off
 
 service hciattach_ath3k /system/bin/sh /system/etc/init.ath3k.bt.sh
+     seclabel u:r:init:s0
      class late_start
      user bluetooth
      group system bluetooth net_bt_admin misc
@@ -852,6 +856,7 @@ service loc_launcher /system/bin/loc_launcher
     group gps inet qcom_diag wifi
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
+    seclabel u:r:init:s0
     class late_start
     user system
     group system
@@ -875,16 +880,19 @@ on property:drmdiag.load=0
     stop drmdiag
 
 service qcom-sh /system/bin/sh /init.qcom.sh
+    seclabel u:r:init:s0
     class late_start
     user root
     oneshot
 
 service sensor-sh /system/bin/sh /init.qcom.sensors.sh
+    seclabel u:r:init:s0
     class core
     user root
     oneshot
 
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
+    seclabel u:r:init:s0
     class late_start
     user root
     disabled
@@ -898,12 +906,14 @@ service qti-testscripts /system/bin/sh /system/etc/init.qcom.testscripts.sh
     seclabel u:r:qti-testscripts:s0
 
 service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
+    seclabel u:r:init:s0
     class late_start
     group wifi inet
     disabled
     oneshot
 
 service wifi-crda /system/bin/sh /system/etc/init.crda.sh
+   seclabel u:r:init:s0
    class late_start
    user root
    disabled
@@ -968,6 +978,7 @@ service ril-daemon3 /system/bin/rild -c 3
     group radio cache inet misc audio sdcard_r sdcard_rw qcom_diag diag log drmrpc trimarea
 
 service usb_uicc_enable /system/bin/sh /system/etc/init.qcom.uicc.sh
+    seclabel u:r:init:s0
     class late_start
     user root
     disabled
@@ -992,6 +1003,7 @@ service profiler_daemon /system/bin/profiler_daemon
     disabled
 
 service hcidump /system/bin/sh /system/etc/hcidump.sh
+    seclabel u:r:init:s0
     user bluetooth
     group bluetooth system net_bt_admin net_admin
     disabled
@@ -1109,12 +1121,14 @@ service LKCore-rel /system/vendor/bin/LKCore
 
 # Coresight early boot service
 service cs-early-boot /system/bin/sh /persist/coresight/qdss.agent.sh early-boot /system/etc/init.qcom.debug.sh
+    seclabel u:r:init:s0
     class core
     user root
     oneshot
 
 # Coresight post boot servive
 service cs-post-boot /system/bin/sh /persist/coresight/qdss.agent.sh
+    seclabel u:r:init:s0
     user root
     disabled
     oneshot
