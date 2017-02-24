@@ -242,10 +242,6 @@ on boot
     chmod 0660 /proc/bluetooth/sleep/lpm
     chmod 0660 /proc/bluetooth/sleep/btwrite
 
-    # SONY: Enable Sony RIC
-    mount securityfs securityfs /sys/kernel/security nosuid nodev noexec
-    chmod 0640 /sys/kernel/security/sony_ric/enable
-
     # SONY: Enable wakeup irq module
     write /sys/devices/platform/wakeup_debug.0/enable 1
 
@@ -372,13 +368,6 @@ service iddd /system/bin/iddd
     class core
     user idd
     group idd log inet trimarea
-
-# Start RIC
-service ric /sbin/ric
-    user root
-    group root drmrpc trimarea system
-    class main
-    seclabel u:r:ric:s0
 
 # tpm-service
 # Allows other system application to use tpm from java
