@@ -1,0 +1,28 @@
+#
+# ADDITIONAL TWEAKS SCRIPT FOR ONYXIA KERNEL
+#
+on late-init
+    # configure core_ctl parameters
+    write /sys/devices/system/cpu/cpu0/core_ctl/disable 1
+    write /sys/devices/system/cpu/cpu2/core_ctl/max_cpus 2
+    write /sys/devices/system/cpu/cpu2/core_ctl/min_cpus 0
+    write /sys/devices/system/cpu/cpu2/core_ctl/busy_up_thres "70 90"
+    write /sys/devices/system/cpu/cpu2/core_ctl/busy_down_thres "30 50"
+    write /sys/devices/system/cpu/cpu2/core_ctl/offline_delay_ms 200
+    write /sys/devices/system/cpu/cpu2/core_ctl/is_big_cluster 1
+    write /sys/devices/system/cpu/cpu2/core_ctl/task_thres 6
+
+    # update cpusets now that processors are up
+    write /dev/cpuset/foreground/cpus 0-3
+    write /dev/cpuset/foreground/boost/cpus 0-3
+    write /dev/cpuset/background/cpus 0
+    write /dev/cpuset/system-background/cpus 0-1
+    write /dev/cpuset/top-app/cpus 1-3
+
+on property:sys.boot_completed=1
+    # move some threads into system-background cpuset
+    # to prevent them drain too much battery
+    PID=`pgrep -x ksmd`
+    echo -n $PID > /dev/cpuset/system-background/tasks
+    PID=`pgrep -x ueventd`
+    echo -n $PID > /dev/cpuset/system-background/tasks

@@ -11,6 +11,7 @@ import /init.${ro.hardware}.rc
 import /init.usb.configfs.rc
 import /init.${ro.zygote}.rc
 import init.supersu.rc
+import init.devries_tweaks.rc
 
 on early-init
     restorecon /vendor/lib64/libdrmfix.so
