@@ -16,7 +16,7 @@
 #define _ZRAM_DRV_H_
 
 #include <linux/spinlock.h>
-#include <linux/zsmalloc.h>
+#include <linux/zpool.h>
 
 #include "zcomp.h"
 
@@ -32,7 +32,7 @@ static const unsigned max_num_devices = 32;
  * Pages that compress to size greater than this are stored
  * uncompressed in memory.
  */
-static const size_t max_zpage_size = PAGE_SIZE / 4 * 3;
+static const size_t max_zpage_size = PAGE_SIZE / 10 * 9;
 
 /*
  * NOTE: max_zpage_size must be less than or equal to:
@@ -96,7 +96,7 @@ struct zram_stats {
 
 struct zram_meta {
 	struct zram_table_entry *table;
-	struct zs_pool *mem_pool;
+	struct zpool *mem_pool;
 };
 
 struct zram {
